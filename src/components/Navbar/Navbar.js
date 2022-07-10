@@ -1,37 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useContext } from 'react'
 import logo from '../../assets/icons/logo.svg'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
+import { AppContext } from '../../context/AppContext'
+
 
 const Navbar = () => {
-
-    const [pages, setPages] = useState([])
-    const pageNames = ['Products', 'Solutions', 'About']
-
-    async function getInfo() {
-        try {
-            const response = await axios.get('https://adchitects-cms.herokuapp.com/pages',
-          {
-            auth: {
-              username: 'adchitects',
-              password: 'jsrulezzz',
-            },
-          }
-        )
-        setPages(response.data)
-        console.log(response.data)
-        } catch (err) {
-            console.error(err)
-        }   
-    }
-
-
-    useEffect(() => {
-            (async () => {
-              await getInfo();
-            })();
-          },[]) 
+    
+    const {pages, pageNames} = useContext(AppContext)
 
     return (
         <div className="navbar">

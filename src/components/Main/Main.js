@@ -1,24 +1,32 @@
 
 
-import React from 'react'
+import React, {useContext} from 'react'
 import mark from '../../assets/icons/mark.svg'
+import { AppContext } from '../../context/AppContext'
 import './Main.css'
 
 const Main = () => {
+
+  const {informationAbout} = useContext(AppContext)
+
   return (
     <div className="main">
-        <div className="main_container container">
+      {informationAbout 
+      ?
+      <div className="main_container container">
         <div className="main__quote">
             <img src={mark} alt='quote' />
         </div>
         <div className="main__text">
-            Torquatos nostros? quos dolores eos, qui studiose antiqua persequeris, claris et quasi naturalem. In quo enim inter mediocrem animadversionem atque insitam in malis dolor, non numquam. 
-            At vero eos et dolore suo sanciret.
+          {informationAbout && informationAbout[1].text}
         </div>
         <div className="main__author">
-            John Doe, Street Artist
+          {informationAbout && informationAbout[1].author}
         </div>
         </div>
+        :
+        <div>Loading...</div>}
+        
     </div>
   )
 }

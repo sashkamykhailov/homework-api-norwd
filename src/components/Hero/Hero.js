@@ -1,21 +1,29 @@
 
-import React from 'react'
-import my from '../../assets/images/my.jpg'
+import React, {useContext} from 'react'
+import { AppContext } from '../../context/AppContext'
 import './Hero.css'
 
 const Hero = () => {
+
+  const {informationAbout} = useContext(AppContext)
+
   return (
     <div className="hero">
+        {informationAbout 
+        ? 
         <div className="hero__container container">
             <div className="hero__title">
                 <h1>
-                    In oculis quidem rerum facilis est et aperta
+                    {informationAbout && informationAbout[0].text}
                 </h1>
             </div>
             <div className="hero__image">
-                <img src={my} alt="hero-img"/>
+                <img src={informationAbout && informationAbout[0].img} alt="hero-img"/>
             </div>
         </div>
+        :
+        <div>Loading...</div>
+        }
     </div>
   )
 }

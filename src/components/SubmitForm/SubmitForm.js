@@ -1,18 +1,39 @@
 
 import React, { useState } from 'react'
+import axios from 'axios'
 import './SubmitForm.css'
 
 const SubmitForm = () => {
 
   const [submit, setSubmit] = useState('')
-  const [submited, setSubmited] = useState(false)
+  const [responseS, setResponseS] = useState('')
+  const [messageColor,setMessageColor] = useState(true)
 
   const handleClick = () => {
-        setSubmited(true)
         setSubmit('') 
-        setTimeout(() => {
-          setSubmited(false)
-        },1500)   
+        
+        axios.post('https://adchitects-cms.herokuapp.com/newsletter', 
+            {
+                email: submit, 
+            },
+            {
+                auth: {
+                    username: 'adchitects',
+                    password: 'jsrulezzz',
+                    },
+            }
+        ).then(res => {
+            setMessageColor(true)
+            setResponseS(res.data.message)
+        }
+        ).catch(rej => {
+            setMessageColor(false)
+            setResponseS('Email is not valid')
+        })
+       
+       setTimeout(() => {
+           setResponseS('')
+       },1500)
   }
 
   return (
@@ -35,13 +56,9 @@ const SubmitForm = () => {
                     Submit
                 </button>
             </div>
-            {submited ? 
-            <div className="submit__message">
-                Thank you for signing up for the Breally newsletter.
+            <div className={messageColor ? "submit__message" : "submit__message red"}>
+                {responseS}
             </div> 
-            :
-            null
-            }
         </div>
     </div>
   )
