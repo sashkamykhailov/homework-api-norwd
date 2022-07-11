@@ -4,5 +4,5 @@ I did not use UI styles for input and button, for a reason that I was trying to 
 I would create folder UI for this ;) 
 
 
-For whole project I waste like ~1h, without RWD
+For whole project I waste like ~2.5h, without RWD
 # homework-api-norwd
